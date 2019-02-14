@@ -14,9 +14,6 @@
 # Clear Global Environment
 rm(list = ls())
 
-# Set working directory
-setwd("/Users/pedrorodriguez/Drobox/GitHub/Text-as-Data-Lab-Spring-2019/W2_02_07_19/")
-
 # 1.2 Installing quanteda
 
 # Install the latest stable version of quanteda from CRAN
@@ -36,7 +33,7 @@ library(dplyr)
 #library("devtools")
 
 # Use devtools to install some sample data
-#devtools::install_github("quanteda/quanteda.corpora")
+devtools::install_github("quanteda/quanteda.corpora")
 
 # Load it into our environment
 library(quanteda.corpora)
@@ -101,7 +98,7 @@ trump_sotu_corpus <- corpus_subset(data_corpus_sotu, President == "Trump")
 summary(corpus_subset(data_corpus_sotu, President == "Trump"))
 
 # key words in context (KWIC)
-kwic_america <- kwic(trump_sotu_corpus, pattern = "america", valuetype = "regex")
+kwic_america <- kwic(trump_sotu_corpus, pattern = "america", valuetype = "fixed")
 
 # keep only the text of the most recent SOTU
 trump_2018_text <- texts(trump_sotu_corpus)[2]
@@ -130,6 +127,10 @@ head(unname(unlist(tokenized_speech)), 10)
 ?tokens_wordstem
 stemmed_speech <- tokens_wordstem(tokenized_speech)
 head(unname(unlist(stemmed_speech)), 10)
+
+ntoken(trump_2018_text)
+ntype(trump_2018_text)
+tokens(trump_2018_text) %>% unlist() %>% unique() %>% length()
 
 #-----------------------------
 # 3 DOCUMENT FEATURE MATRIX
@@ -204,13 +205,14 @@ topfeatures(normalized)
 #-----------------------------
 # bigrams
 
-head(textstat_collocations(trump_2018_sotu))
+head(textstat_collocations(trump_2018_text))
 ?textstat_collocations
 
 # trigrams
-head(textstat_collocations(trump_2018_sotu, size = 3))
+head(textstat_collocations(trump_2018_text, size = 3))
 
 # Are there any other terms you all think are interesting?
+
 
 #-----------------------------
 # 6 REGULAR EXPRESSIONS
@@ -243,7 +245,7 @@ library("preText")
 # Example below taken from preText vignette: https://cran.r-project.org/web/packages/preText/vignettes/getting_started_with_preText.html
 
 preprocessed_documents <- factorial_preprocessing(
-  data_corpus_sotu,
+  data_corpus_sotu[1:50],
   use_ngrams = FALSE,
   infrequent_term_threshold = 0.2,
   verbose = FALSE)
