@@ -1,0 +1,74 @@
+---
+title: "Text as Data, homework 1"
+author: "Mac Tan"
+date: "March 5, 2019"
+output: pdf_document
+---
+
+```{r setup, include = FALSE, echo = FALSE}
+library(quanteda)
+library(quanteda.corpora)
+library(tidyverse)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Reagan's inaugural addresses
+
+**First we'll use the data from the U.S. inaugural addresses available in `quanteda.corpora`. Let's first look at the inaugural addresses given by Ronald Reagan in 1981 and 1985.**
+
+**(a) Calculate the TTR of each of Reagan's inaugural speeches and report your findings.**
+
+```{r 1a-reagan}
+
+```
+
+**(b) Create a document feature matrix of the two speeches, with no pre-processing other than to remove the punctuation---be sure to check the options on `dfm` in R as appropriate. Calculate the cosine distance between the two documents with `quanteda`. Report your findings.**
+
+```{r 1b-dfm}
+
+```
+
+
+## 2. Preprocessing choices
+
+**Consider different preprocessing choices you could make. For each of the following parts of this question, you have three tasks: (i), make a theoretical argument for how it should affect the TTR of each document and the similarity of the two documents, and (ii), re-do question (1a) with the preprocessing option indicated, and (iii) redo question(1b) with the preprocessing option indicated. You should remove punctuation in each step.**
+
+### (a) Stemming the words
+
+### (b) Removing stop words
+
+### (c) Converting all words to lowercase
+
+### (d) Does tf-idf weighting make sense here?
+
+## 3. Lexical diversity
+
+**Calculate the MLTD of each of the two Reagan speeches, with the TTR limit set at $0.72$. Rather than covering the entire speech, you can find the mean lengths starting from 25 different places in each speech, as long as there is no overlap between the snippets.**
+
+```{r 3-lexical-diversity}
+
+```
+
+## 4. Take the following two headlines, \texttt{"Trump Says He's 'Not Happy' With Border Deal, but Doesn't Say if He Will Sign It."} and \texttt{"Trump 'not happy' with border deal, weighing options for building wall."}, and calculate (by hand):
+
+### (a) the Euclidean distance between the sentences
+
+### (b) the Manhattan distance
+
+### (c) the cosine similarity
+
+## 5. One of the earliest and most famous applications of statistical textual analysis was to determine the authorship of texts. You now get to do the same! You will be using Leslie Huang's `stylest` package. To get the texts for this exercise you will need the `gutenbergr` package.
+
+### (a) First you will need to get the data from Project Gutenberg using their `gutenbergr` package. Download the first four novels for each of the following authors: Austen, Jane (*Persuasion*, *Northanger Abbey*, *Mansfield Park*, and *Emma*), Twain, Mark (*What Is Man? and Other Essays*, *The Adventures of Tom Sawyer*, *Adventures of Huckleberry Finn* and *A Connecticut Yankee in King Arthur's Court*), Joyce, James (*Dubliners*, *Chamber Music*, *A Portrait of the Artist as a Young Man*, and *Ulysses*) and Dickens, Charles (*A Christmas Carol in Prose; Being a Ghost Story of Christmas*, *A Tale of Two Cities*, *The Mystery of Edwin Drood*, and *The Pickwick Papers*). From each of these novels extract a short excerpt (e.g. 500 lines of text).
+
+### (b) Next you will need to organize the data as required by the package. Create a table (i.e. a dataframe) with one column for the text excerpts and one column identifying the author of each excerpt (although not required to fit the model, also create a column for the title of the novel which the excerpt belongs to).
+
+### (c) Now use the `stylest_select_vocab` function to select the terms you will include in your model. Note, this function allows you to include some pre-processing options. Justify any pre-processing choices you make. What percentile (of term frequency) has the best prediction rate? Also report the rate of incorrectly predicted speakers of held-out texts.
+
+### (d) Use your optimal percentile from above to subset the terms to be included in your model (this requires you use the `stylest_terms` function). Now go ahead and fit the model using `stylest_fit`. The output of this function includes information on the rate at which each author uses each term (the value is labeled `rate`). Report the top 5 terms most used by each author. Do these terms make sense?
+
+### (e) Choose any two authors, take the ratio of their frequency vectors (make sure dimensions are in the same order) and arrange the resulting vector from largest to smallest values. What are the top 5 terms according to this ratio? How would you interpret this ordering?
+
+### (f) Load the mystery excerpt provided. According to your tted model, who is the most likely author?
+
+## 6. For this question we will use the sophistication package discussed in the lab. The corpus for this exercise will be the U.S. inaugural addresses.

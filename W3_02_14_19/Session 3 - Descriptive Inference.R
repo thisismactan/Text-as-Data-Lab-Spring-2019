@@ -247,7 +247,7 @@ several_inaug_dfm <- dfm(corpus_subset(data_corpus_inaugural , Year > 1980), rem
 
 # Specific comparisons with Obama's first inauguration speech
 
-textstat_simil(several_inaug_dfm, "2009-Obama", margin = "documents", method = "correlation")
+textstat_simil(several_inaug_dfm, c("2017-Trump"), margin = "documents", method = "correlation")
 
 # Other options available: Manhattan distance, cosine, etc.
 ?textstat_simil
